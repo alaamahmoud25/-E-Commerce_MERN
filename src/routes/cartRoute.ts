@@ -2,6 +2,7 @@ import express from 'express';
 import {
   getActiveCartForUser,
   addItemToCart,
+  checkout
 } from '../services/cartService.js';
 import validateJWT from '../middlewares/validateJWT.js';
 import type { ExtendRequest } from '../types/extendedRequest.js';
@@ -44,5 +45,10 @@ router.delete(
     res.status(response.statusCode).send(response.data);
   }
 );
-
+router.post('/checkout', validateJWT, async (req: ExtendRequest, res) => {
+  const userId = req?.user?._id;
+  const { address } = req.body;
+  const response = await checkout({ userId, address });
+  res.status(response.statusCode).send(response.data);
+});
 export default router;
