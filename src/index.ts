@@ -4,9 +4,12 @@ import productRoute from './routes/productRoute.js';
 import { seedInitialProducts } from './services/productService.js';
 import cartRoute from './routes/cartRoute.js';
 import userRoute from './routes/userRoute.js';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
-const port = 3001;
+const port = process.env.PORT || 3001;
 
 app.use(express.json());
 
